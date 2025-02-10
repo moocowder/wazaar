@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center gap-6 h-screen w-full px-6 min-h-screen bg-gradient-to-b from-[#000030] to-[#020000]">
+    <div className="flex flex-col items-center justify-center gap-6 h-screen w-full px-6  ">
       <div className="font-bold text-4xl text-center max-w-3xl">
         Wazaar – The Premier Marketplace for Enchanted Artifacts
       </div>
