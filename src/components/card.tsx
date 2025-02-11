@@ -8,17 +8,20 @@ interface Props {
   price: number
   rating: number
   type: string
+  imageUrl: string
 }
 
-export default function Card({ id, name, price, rating, type }: Props) {
+export default function Card({
+  id,
+  name,
+  price,
+  rating,
+  type,
+  imageUrl,
+}: Props) {
   return (
     <div className="p-2 w-64 flex flex-col items-center">
-      <Image
-        src="https://picsum.photos/200/200"
-        alt="item image"
-        width={200}
-        height={200}
-      />
+      <Image src={imageUrl} alt="item image" width={200} height={200} />
       <div className="mt-4 text-3xl">{name}</div>
       <div className="mb-4 text-xl">{price}</div>
       <div className="w-full flex justify-between">
