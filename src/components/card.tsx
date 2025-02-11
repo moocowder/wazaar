@@ -1,5 +1,6 @@
 import { Star } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 import React from "react"
 
 interface Props {
@@ -20,7 +21,7 @@ export default function Card({
   imageUrl,
 }: Props) {
   return (
-    <div className="p-2 w-64 flex flex-col items-center">
+    <Link className="p-2 w-64 flex flex-col items-center" href={`/items/${id}`}>
       <Image src={imageUrl} alt="item image" width={200} height={200} />
       <div className="mt-4 text-3xl">{name}</div>
       <div className="mb-4 text-xl">{price}</div>
@@ -33,6 +34,6 @@ export default function Card({
           {type}
         </span>
       </div>
-    </div>
+    </Link>
   )
 }
