@@ -1,6 +1,7 @@
 "use client"
 import Card from "@/components/card"
 import { supabase } from "@/lib/supabaseClient"
+import { Star } from "lucide-react"
 import Image from "next/image"
 import { useParams } from "next/navigation"
 import React, { useEffect, useState } from "react"
@@ -39,17 +40,31 @@ export default function Item() {
           width={400}
           height={400}
         />
-        <div className="flex flex-col gap-2 justify-between">
-          <span className="text-6xl">{item.name}</span>
-          <span>{item.price}</span>
-          <span>{item.rating}</span>
-          <span>{item.type}</span>
-          <button className="px-6 py-3 text-lg font-semibold border border-purple-600 text-white rounded-xl ">
-            Add to cart
-          </button>
-          <button className="px-6 py-3 text-lg font-semibold bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg transition-all duration-300">
-            Buy now
-          </button>
+        <div className="flex flex-col justify-between">
+          <div className="flex flex-col gap-2">
+            <span className="text-6xl">{item.name}</span>
+            <span className="text-2xl">
+              🪙 {item.price} <span className="text-lg">Zins</span>
+            </span>
+            <div className="flex justify-between">
+              <span className="flex items-center gap-1">
+                <Star color="yellow" />
+                {item.rating}
+              </span>
+              <span className="px-2 inline-flex items-center w-max bg-[#FF000030] text-sm text-red-700 rounded-full">
+                {item.type}
+              </span>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <button className="px-6 py-3 text-lg font-semibold border border-purple-600 text-white rounded-xl ">
+              Add to cart
+            </button>
+            <button className="px-6 py-3 text-lg font-semibold bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg transition-all duration-300">
+              Buy now
+            </button>
+          </div>
         </div>
       </div>
       <div>{item.description}</div>

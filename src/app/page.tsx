@@ -1,7 +1,10 @@
+"use client"
 import Link from "next/link"
 import { motion } from "framer-motion"
+import { useRouter } from "next/navigation"
 
 export default function Home() {
+  const router = useRouter()
   return (
     <div className="flex flex-col items-center justify-center gap-6 h-screen w-full px-6  ">
       <div className="font-bold text-4xl text-center max-w-3xl">
@@ -12,7 +15,10 @@ export default function Home() {
         ancient relics to modern enchanted tools, discover a curated selection
         of mystical items that bring magic into your life.
       </div>
-      <button className="px-6 py-3 text-lg font-semibold bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg transition-all duration-300">
+      <button
+        onClick={() => router.push("/explore")}
+        className="px-6 py-3 text-lg font-semibold bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg transition-all duration-300"
+      >
         Start Exploring
       </button>
     </div>
