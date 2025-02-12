@@ -1,6 +1,7 @@
 "use client"
 import Card from "@/components/card"
 import { supabase } from "@/lib/supabaseClient"
+import { ItemType } from "@/types/item"
 import { Star } from "lucide-react"
 import Image from "next/image"
 import { useParams } from "next/navigation"
@@ -9,7 +10,8 @@ import React, { useEffect, useState } from "react"
 export default function Item() {
   const params = useParams()
   const id = params?.id
-  const [item, setItem] = useState<any>({})
+  const [item, setItem] = useState<ItemType>()
+
   useEffect(() => {
     console.log(id)
     const fetchArtifacts = async () => {
@@ -28,6 +30,9 @@ export default function Item() {
   useEffect(() => {
     if (item) console.log(item)
   }, [item])
+
+  if (!item) return <div>no item</div>
+
   return (
     <div className="m-8 mx-16 flex flex-col gap-8">
       <div className="flex gap-8 justify-center flex-wrap">

@@ -5,9 +5,10 @@ import Image from "next/image"
 import React, { useEffect, useState } from "react"
 import { supabase } from "@/lib/supabaseClient"
 import Nav from "@/components/nav"
+import { ItemType } from "@/types/item"
 
 export default function page() {
-  const [items, setItems] = useState<any[]>([])
+  const [items, setItems] = useState<ItemType[]>([])
 
   useEffect(() => {
     const fetchArtifacts = async () => {
@@ -33,9 +34,7 @@ export default function page() {
             price={i.price}
             rating={i.rating}
             type={i.type}
-            imageUrl={`${
-              supabase.storage.from("pics").getPublicUrl(i.image).data.publicUrl
-            }`}
+            image={i.image}
           />
         ))}
       </div>
