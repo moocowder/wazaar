@@ -1,6 +1,8 @@
 "use client"
 import Card from "@/components/card"
+import Cart from "@/components/cart"
 import { supabase } from "@/lib/supabaseClient"
+import useCartStore from "@/stores/cart"
 import { ItemType } from "@/types/item"
 import { Star } from "lucide-react"
 import Image from "next/image"
@@ -8,6 +10,7 @@ import { useParams } from "next/navigation"
 import React, { useEffect, useState } from "react"
 
 export default function Item() {
+  const { addItem, hasItem, removeItem } = useCartStore()
   const params = useParams()
   const id = params?.id
   const [item, setItem] = useState<ItemType>()
@@ -63,9 +66,22 @@ export default function Item() {
           </div>
 
           <div className="flex flex-col gap-4">
-            <button className="px-6 py-3 text-lg font-semibold border border-purple-600 text-white rounded-xl ">
-              Add to cart
-            </button>
+            {hasItem(item.id) ? (
+              <button
+                onClick={() => removeItem(item.id)}
+                className="px-6 py-3 text-lg font-semibold border border-purple-600 text-white rounded-xl "
+              >
+                Remove from cart
+              </button>
+            ) : (
+              <button
+                onClick={() => addItem(item)}
+                className="px-6 py-3 text-lg font-semibold border border-purple-600 text-white rounded-xl "
+              >
+                Add to cart
+              </button>
+            )}
+
             <button className="px-6 py-3 text-lg font-semibold bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg transition-all duration-300">
               Buy now
             </button>
@@ -75,4 +91,8 @@ export default function Item() {
       <div>{item.description}</div>
     </div>
   )
+}
+
+const itemInCart = (id: string, items: ItemType[]) => {
+  return items.some((i) => i.id === id)
 }
