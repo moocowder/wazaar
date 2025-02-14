@@ -4,6 +4,7 @@ import Cart from "@/components/cart"
 import { supabase } from "@/lib/supabaseClient"
 import useCartStore from "@/stores/cart"
 import { ItemType } from "@/types/item"
+import { ItemDTO } from "@/types/itemDto"
 import { Star } from "lucide-react"
 import Image from "next/image"
 import { useParams } from "next/navigation"
@@ -22,7 +23,8 @@ export default function Item() {
         .from("items")
         .select("*")
         .eq("id", id)
-        .single()
+        .single<ItemDTO>()
+
       if (error) console.error("Error fetching items:", error)
       else setItem(data)
     }

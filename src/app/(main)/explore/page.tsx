@@ -6,13 +6,17 @@ import React, { useEffect, useState } from "react"
 import { supabase } from "@/lib/supabaseClient"
 import Nav from "@/components/nav"
 import { ItemType } from "@/types/item"
+import { ItemDTO } from "@/types/itemDto"
 
 export default function page() {
   const [items, setItems] = useState<ItemType[]>([])
 
   useEffect(() => {
     const fetchArtifacts = async () => {
-      const { data, error } = await supabase.from("items").select("*")
+      const { data, error } = await supabase
+        .from("items")
+        .select("*")
+        .returns<ItemDTO[]>()
       if (error) console.error("Error fetching items:", error)
       else setItems(data)
     }
