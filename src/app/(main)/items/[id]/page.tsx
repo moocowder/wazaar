@@ -34,6 +34,24 @@ export default function Item() {
     if (item) console.log(item)
   }, [item])
 
+  const onAddToCartClick = async (item: ItemType) => {
+    const { data, error } = await supabase
+      .from("cart")
+      .insert({ item_id: item.id })
+
+    if (error) console.error("couldn't add item! : ", error)
+    else addItem(item)
+  }
+
+  const onRemoveFromCartClick = async (id: string) => {
+    const { data, error } = await supabase
+      .from("cart")
+      .delete()
+      .eq("item_id", id)
+    if (error) console.error("couldn't delete item :", error)
+    else removeItem(id)
+  }
+
   if (!item) return <div>no item</div>
 
   return (
@@ -68,14 +86,14 @@ export default function Item() {
           <div className="flex flex-col gap-4">
             {hasItem(item.id) ? (
               <button
-                onClick={() => removeItem(item.id)}
+                onClick={() => onRemoveFromCartClick(item.id)}
                 className="px-6 py-3 text-lg font-semibold border border-purple-600 text-white rounded-xl "
               >
                 Remove from cart
               </button>
             ) : (
               <button
-                onClick={() => addItem(item)}
+                onClick={() => onAddToCartClick(item)}
                 className="px-6 py-3 text-lg font-semibold border border-purple-600 text-white rounded-xl "
               >
                 Add to cart

@@ -20,9 +20,6 @@ export default function page() {
     fetchArtifacts()
   }, [])
 
-  useEffect(() => {
-    if (items) console.log(items)
-  }, [items])
   return (
     <div>
       <div className="flex flex-wrap justify-around gap-12 m-8">
