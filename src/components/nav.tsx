@@ -1,4 +1,5 @@
 "use client"
+import { useGetCartItems } from "@/services/cart.service"
 import useCartStore from "@/stores/cart"
 import { Search, ShoppingCart } from "lucide-react"
 import Image from "next/image"
@@ -6,7 +7,8 @@ import Link from "next/link"
 import React from "react"
 
 export default function Nav() {
-  const { items, toggleVisible } = useCartStore()
+  const { isError, isPending, error, data: items } = useGetCartItems()
+  const { toggleVisible } = useCartStore()
 
   return (
     <div className="flex h-16 px-4 items-center">
@@ -35,7 +37,7 @@ export default function Nav() {
       >
         <ShoppingCart />
         <span className="bg-red-500 w-4 h-4 rounded-full flex justify-center items-center">
-          {items.length}
+          {items && items.length}
         </span>
       </div>
     </div>

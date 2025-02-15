@@ -1,39 +1,26 @@
 "use client"
 import Cart from "@/components/cart"
 import Nav from "@/components/nav"
-import { supabase } from "@/lib/supabaseClient"
+import { queryClient } from "@/lib/reactQuery"
 import useCartStore from "@/stores/cart"
-import { ItemDTO } from "@/types/itemDto"
-import { useEffect } from "react"
+import { QueryClientProvider } from "@tanstack/react-query"
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
 export default function MainLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const { visible, addItem } = useCartStore()
-  useEffect(() => {
-    const getCartItems = async () => {
-      const { data, error } = await supabase
-        .from("cart")
-        .select("items(*)")
-        .returns<{ items: ItemDTO }[]>()
-
-      if (error) console.error("couldn't get items from cart")
-      else {
-        const items = data.map((entry) => entry.items)
-        items.map((i) => addItem(i))
-      }
-    }
-
-    getCartItems()
-  }, [])
+  const { visible } = useCartStore()
 
   return (
-    <div>
-      <Nav />
-      {visible && <Cart />}
-      {children}
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <div>
+        <Nav />
+        {visible && <Cart />}
+        {children}
+      </div>
+    </QueryClientProvider>
   )
 }
