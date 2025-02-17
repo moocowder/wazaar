@@ -2,6 +2,7 @@
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
+import Bouton from "@/components/bouton"
 
 export default function Home() {
   const router = useRouter()
@@ -15,12 +16,13 @@ export default function Home() {
         ancient relics to modern enchanted tools, discover a curated selection
         of mystical items that bring magic into your life.
       </div>
-      <button
+      <Bouton
+        type="primary"
         onClick={() => router.push("/explore")}
-        className="px-6 py-3 text-lg font-semibold bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-lg transition-all duration-300"
+        className="w-64"
       >
         Start Exploring
-      </button>
+      </Bouton>
     </div>
   )
 }
