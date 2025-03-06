@@ -10,7 +10,7 @@ export default function page() {
 
   return (
     <div>
-      <div className="flex flex-wrap justify-center gap-12 m-8">
+      <div className="flex flex-wrap justify-center gap-12 sm:m-8">
         {items &&
           items.map((i) => (
             <Card

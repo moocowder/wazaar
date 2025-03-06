@@ -27,11 +27,11 @@ export default function Item() {
   if (!item) return <div>no item</div>
 
   return (
-    <div className="m-8 mx-16 flex flex-col gap-8">
-      <div className="p-4 flex items-start flex-wrap gap-6">
+    <div className="sm:m-8 sm:mx-16 flex flex-col gap-8 max-w-xlg">
+      <div className="flex flex-col lg:flex-row items-center gap-6">
         {/* 🖼️ Item Image */}
         <Image
-          className="rounded-md"
+          className="sm:rounded-md w-full sm:w-auto max-w-[400px] h-[400px] object-cover"
           src={
             supabase.storage.from("pics").getPublicUrl(item.image).data
               .publicUrl
@@ -39,48 +39,59 @@ export default function Item() {
           alt="item image"
           width={400}
           height={400}
+          priority
         />
 
         {/* 📌 right side */}
-        <div className="flex flex-1 flex-col gap-4 h-[400px]">
+        <div className="flex lg:flex-1 flex-col gap-4 lg:h-[400px] w-full">
           {/* 📌 Item Name */}
-          <div className="text-4xl font-semibold">{item.name}</div>
+          <div className="text-3xl sm:text-4xl font-semibold text-center lg:text-start">
+            {item.name}
+          </div>
           {/* 💲 Price & ⭐ Rating & type & button*/}
-          <div className="flex flex-col justify-between flex-1">
-            <div className="flex items-center justify-between gap-4 text-gray-300">
-              <span className="flex items-center gap-1">
-                <DollarSign className="text-yellow-500 w-5 h-5" />
-                <span className="font-medium">{item.price}</span>
-              </span>
-              <span className="flex items-center gap-1">
-                <Star className="text-yellow-500 w-5 h-5" />
-                <span className="font-medium">{item.rating}</span>
-              </span>
+          <div className="flex flex-col justify-between flex-1 gap-6 sm:gap-4">
+            <div className="flex flex-col items-center gap-4 text-gray-300">
+              <div className="flex items-center gap-4">
+                <span className="flex items-center gap-1">
+                  <DollarSign className="text-yellow-500 w-5 h-5" />
+                  <span className="font-medium">{item.price}</span>
+                </span>
+                <span className="flex items-center gap-1">
+                  <Star className="text-yellow-500 w-5 h-5" />
+                  <span className="font-medium">{item.rating}</span>
+                </span>
+              </div>
               {/* 🏷️ Item Type */}
               <span className="px-3 py-1 text-sm font-medium text-purple-700 bg-[#9036ff30] rounded-full w-fit">
                 🐉🦉 {item.type}
               </span>
             </div>
 
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 mx-4 sm:mx-0">
               {CartItems && CartItems.some((i) => i.id === id) ? (
-                <Bouton onClick={() => removeItemMutation.mutate(item.id)}>
+                <Bouton
+                  onClick={() => removeItemMutation.mutate(item.id)}
+                  className="w-full"
+                >
                   Remove from Cart
                 </Bouton>
               ) : (
-                <Bouton onClick={() => addItemMutation.mutate(item.id)}>
+                <Bouton
+                  onClick={() => addItemMutation.mutate(item.id)}
+                  className="w-full"
+                >
                   Add to cart
                 </Bouton>
               )}
 
-              <Bouton onClick={() => {}} type="primary">
+              <Bouton onClick={() => {}} type="primary" className="w-full">
                 Buy now
               </Bouton>
             </div>
           </div>
         </div>
       </div>
-      <div>{item.description}</div>
+      <div className="px-4 sm:px-0">{item.description}</div>
     </div>
   )
 }
