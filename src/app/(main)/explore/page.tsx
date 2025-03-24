@@ -2,7 +2,7 @@
 import Card from "@/components/card"
 import { useGetItems } from "@/services/item.service"
 
-export default function page() {
+export default function Explore() {
   const { isPending, isError, error, data: items } = useGetItems()
 
   if (isPending) return <div>pending....</div>
